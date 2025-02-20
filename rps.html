@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors - Laxmi & Aaryan</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #7b23e7, #a778ee);
+      color: #fff;
+    }
+    h1 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+    .game-container {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      max-width: 400px;
+      width: 100%;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-left: 10px;
+    }
+    button {
+      background: #F6B0D1;
+      color: #4A006E;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #F499C2;
+    }
+    #result, #final-result, #scoreBoard {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+    .hidden {
+      display: none;
+    }
+    /* Shiny white text style */
+    .shiny-text {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 0 0 10px #fff;
+    }
+    .shiny-para {
+      font-size: 1.3rem;
+      color: #fff;
+      text-shadow: 0 0 5px #fff;
+    }
+    #finalSection {
+      margin-top: 30px;
+    }
+    #kissButton {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors💕</h1>
+
+  <div class="game-container" id="gameContainer">
+    <!-- Game content goes here; your existing game code -->
+    <!-- Input for number of rounds -->
+    <div class="input-group">
+      <label for="roundInput">Choose number of rounds:</label>
+      <input type="number" id="roundInput" min="1" value="3" />
+      <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <p id="roundsLeft" class="hidden">Rounds Left: <span id="rounds"></span></p>
+    <div id="rpsButtons" class="hidden">
+      <button onclick="playGame('rock')">✊ Rock</button>
+      <button onclick="playGame('paper')">🖐️ Paper</button>
+      <button onclick="playGame('scissors')">✌️ Scissors</button>
+    </div>
+
+    <p id="result"></p>
+    <p id="scoreBoard" class="hidden">Score: Laxmi - <span id="laxmiScore">0</span> | Aaryan - <span id="aaryanScore">0</span></p>
+    <p id="final-result" class="hidden"></p>
+
+    <button id="doneButton" class="hidden" onclick="showEndMessage()">Done Playing?</button>
+    <button id="playAgainButton" class="hidden" onclick="restartGame()">Play Again</button>
+  </div>
+
+  <!-- Final section that will appear after the game ends -->
+  <div id="finalSection" class="hidden">
+    <h2 class="shiny-text" style="font-size:2rem">I have a surprise for you 🤭</h6>
+    <button onclick="showKissPic()" style="background: #F6B0D1; color: #4A006E; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 8px;">Want a Kiss?💋 </button>
+    <br><div id="kissPicContainer" class="hidden" style="margin-top:20px;">
+        <img id="kissButton" src="https://i.ibb.co/nqqZJB8N/Screenshot-2025-02-20-065634.png" width="200px" alt="Kiss Image" onclick="showThankYouMessage()" />
+    
+        </div>
+    
+    <div id="thankYouMessage" class="hidden">
+      <h6 class="shiny-text" style="font-size:2rem">Arigatoo, bangaru !💗</h6>
+      <p class="shiny-para">Thank you for being for spending time with me ,</p>
+      <p class="shiny-para"> listening to me, supporting me and</p>
+      <p class="shiny-para">😭 thank you for being my boy friend.</p>
+      <p>so that's it😸</p>
+      <button onclick="showHug()" style="background: #F6B0D1; color: #4A006E; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 8px;">aa baa luu🤧💖</button>
+      <div id="hugContainer" class="hidden" style="margin-top:20px;">
+        <img src="https://i.ibb.co/D3FvZNs/Screenshot-2025-02-20-102841.png"  width="200px" alt="Hug Image" />
+        
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let roundsLeft = 0;
+    let playerWins = 0; // Laxmi’s wins
+    let aiWins = 0;     // Aaryan’s wins
+
+    function startGame() {
+      const roundInput = document.getElementById('roundInput').value;
+      roundsLeft = parseInt(roundInput) || 3;
+
+      playerWins = 0;
+      aiWins = 0;
+
+      document.getElementById('laxmiScore').innerText = playerWins;
+      document.getElementById('aaryanScore').innerText = aiWins;
+
+      document.getElementById('rounds').innerText = roundsLeft;
+      document.getElementById('roundsLeft').classList.remove('hidden');
+      document.getElementById('rpsButtons').classList.remove('hidden');
+      document.getElementById('scoreBoard').classList.remove('hidden');
+
+      document.getElementById('result').innerHTML = "";
+      document.getElementById('final-result').classList.add('hidden');
+      document.getElementById('doneButton').classList.add('hidden');
+      document.getElementById('playAgainButton').classList.add('hidden');
+      document.getElementById('finalSection').classList.add('hidden');
+    }
+
+    function playGame(playerChoice) {
+      if (roundsLeft <= 0) return;
+
+      const choices = ['rock', 'paper', 'scissors'];
+      const aiChoice = choices[Math.floor(Math.random() * choices.length)];
+      let result = "";
+
+      if (playerChoice === aiChoice) {
+        result = "It's a tie! 🤝";
+      } else if (
+        (playerChoice === 'rock' && aiChoice === 'scissors') ||
+        (playerChoice === 'paper' && aiChoice === 'rock') ||
+        (playerChoice === 'scissors' && aiChoice === 'paper')
+      ) {
+        result = "Laxmi Wins this round! 🎉";
+        playerWins++;
+      } else {
+        result = "Aaryan Wins this round! 🎊";
+        aiWins++;
+      }
+
+      roundsLeft--;
+      document.getElementById('rounds').innerText = roundsLeft;
+      document.getElementById('result').innerHTML = `
+        Aaryan chose ${aiChoice}, Laxmi chose ${playerChoice}.<br>${result}
+      `;
+
+      document.getElementById('laxmiScore').innerText = playerWins;
+      document.getElementById('aaryanScore').innerText = aiWins;
+
+      if (roundsLeft === 0) {
+        setTimeout(showFinalResult, 500);
+      }
+    }
+
+    function showFinalResult() {
+      let finalMessage = "";
+      if (playerWins > aiWins) {
+        finalMessage = "I won the game ⸜(｡˃ ᵕ ˂ )⸝♡";
+      } else if (playerWins < aiWins) {
+        finalMessage = "you won the game! ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧💙<br>But guess what? as being your girlfriend I am the winner (⁠ ꈍᴗꈍ⁠)";
+      } else {
+        finalMessage = "It's a draw! But Laxmi always wins! 💕";
+      }
+
+      document.getElementById('final-result').innerHTML = finalMessage;
+      document.getElementById('final-result').classList.remove('hidden');
+      document.getElementById('doneButton').classList.remove('hidden');
+      document.getElementById('playAgainButton').classList.remove('hidden');
+    }
+
+    function restartGame() {
+      startGame();
+    }
+
+    // This function is triggered when "Done Playing?" is clicked.
+    function showEndMessage() {
+      // Instead of replacing the entire body, we now simply reveal the final section.
+      document.getElementById("finalSection").classList.remove("hidden");
+    }
+
+    // When the kiss image is clicked, show the thank-you message.
+    function showThankYouMessage() {
+      document.getElementById("thankYouMessage").classList.remove("hidden");
+    }
+    function showKissPic() {
+        // Reveal the kiss image when the button is clicked
+        document.getElementById("kissPicContainer").classList.remove("hidden");
+        // Optionally, you can immediately reveal the thank-you message after showing the kiss:
+        document.getElementById("thankYouMessage").classList.remove("hidden");
+      }
+      
+    function showHug() {
+      document.getElementById("hugContainer").classList.remove("hidden");
+    }
+    
+  </script>
+</body>
+</html>

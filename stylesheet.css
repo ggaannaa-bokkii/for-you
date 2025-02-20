@@ -1,0 +1,97 @@
+/* General Styling */
+body {
+    background: linear-gradient(135deg, #64B5F6, #F48FB1);
+    font-family: 'Cursive', sans-serif;
+    text-align: center;
+    color: #0D47A1;
+}
+
+.container {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 💌 Love Letter Section */
+.love-letter {
+    /* A vibrant pink gradient background to make it pop */
+    background: linear-gradient(145deg, #F48FB1, #F06292);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    color: #fff; /* White text for contrast */
+}
+
+.love-letter p {
+    /* Sparkly text effect using animated text-shadow */
+    animation: sparkle 2s infinite alternate;
+}
+
+/* Keyframes for the sparkle effect on love letter text */
+@keyframes sparkle {
+    0% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff80ab;
+    }
+    50% {
+        text-shadow: 0 0 10px #fff, 0 0 15px #ff4081, 0 0 20px #ff80ab;
+    }
+    100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff80ab;
+    }
+}
+
+/* 📸 Memory Lane Section */
+.memory-lane h2 {
+    margin-top: 20px;
+    color: #1565C0;
+}
+
+.images img {
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 🎮 Game Section */
+/* Sparkly Button Styling */
+.play-btn {
+    display: inline-block;
+    background-color: #1976D2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+    animation: sparkle-btn 2s infinite alternate;
+}
+
+.play-btn:hover {
+    background-color: #0D47A1;
+}
+
+/* Keyframes for the sparkly button effect */
+@keyframes sparkle-btn {
+    0% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff;
+    }
+    50% {
+        text-shadow: 0 0 10px #fff, 0 0 15px #ff4081;
+        box-shadow: 0 0 10px #fff, 0 0 15px #ff4081;
+    }
+    100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+        box-shadow: 0 0 5px #fff, 0 0 10px #fff;
+    }
+}
+
+  
